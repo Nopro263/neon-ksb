@@ -37,7 +37,6 @@ def changeable_label(value, color, x, y, suffix=""):
 
     def onchange(new_value, suffix=""):
         if not suffix or not main_label.text or not main_label.text[:-len(suffix)]:
-            print(main_label.text)
             old_value = int(main_label.text)
         else:
             old_value = int(main_label.text[:-len(suffix)])
@@ -108,6 +107,7 @@ FRAMES = 30
 scenes = [money_group, articles_group]
 current_scene = 0
 last_switch = 0
+last_refresh = 0
 
 
 def switch():
@@ -121,9 +121,9 @@ switch()
 
 while True:
     if time.time() - last_switch > 5:
-        switch()
         request_data()
         parse_data()
+        switch()
 
     display.refresh(minimum_frames_per_second=FRAMES)
     time.sleep(1.0 / FRAMES)
